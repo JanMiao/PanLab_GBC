@@ -1,10 +1,10 @@
 # PanLab_GBC
-该代码仓库是：PanLab用于猪品种鉴别及血统成分分析的参考文档
+该代码仓库是：PanLab用于猪品种鉴别及血统成分分析的指导文档。欢迎大家尝试、提交意见和bug。
 
 
-**下述分析均需要填充好的SNP数据，不允许有缺失位点存在**
+**下述所有分析均需要填充好的SNP数据，不允许有缺失位点存在**
 
-## 1. 猪品种鉴别
+## 1. 品种鉴别
 ### a. 如果原始SNP数据不大，可以使用网页进行上传。
 推荐使用网页版品种鉴定工具 [iDIGs](http://alphaindex.zju.edu.cn/iDIGs_en/)，步骤如下：
 ![image](https://github.com/JanMiao/PanLab_GBC/blob/main/images/iDIGs_instruction.PNG)
@@ -20,9 +20,53 @@
 可以使用命令行版本的iDIGs进行分析：
 ```{R}
 # 如果不指定参考品种
-Rscript iDIGs_cmd.R -p toy -r v11
+Rscript /disk195/zz/shinyApp/iPIGs_en/iDIGcmd/iDIGs_cmd.R -p toy -r v11
 # 如果需要指定参考品种
 Rscript iDIGs_cmd.R -p toy -r v11 -b DU,LW,LR
 ```
 结果文件为：`report.html` 和 `report.txt`
+
+### c. 对于WGS数据(SNP数目太多)，使用如下代码先提取相同位点。
+```
+# Normalize your markerID in bim file and copy files
+/disk191/miaoj/software/MakeSNPid file.bim file.tmp.bim
+cp file.bed file.tmp.bed
+cp file.fam file.tmp.fam
+# extract overlapped SNPs
+plink --bfile file.tmp --extract MarkerID_11.txt --make-bed --out upload
+# then run iDIGs with file.tmp.bed(bim,fam)
+```
+
+
+### 对于其他用户未正确运行的iDIGs程序，使用如下代码进行debug
+```
+# 拷贝出现bug的job的目录
+cd /disk195/zz/shinyApp/iPIGs_en/temp/
+cp -r 1679447939/ debug/
+cd debug
+
+# 加载 & 查看用户所用参数
+load("par.RData")
+res
+# 一行行运行R脚本，查找问题
+/disk195/zz/shinyApp/iPIGs_en/debug/debug.R
+```
+## 2. 血统成分分析（基于R包 GBC）
+### 使用iDIGs参考数据集
+使用类似如下代码。
+```
+library(GBC)
+library(data.table)
+library(ggplot2)
+# 选择血统来源
+breeds=c("LW", "LWH") 
+plink_dir="/disk191/miaoj/software/"
+gbc1 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge.phase", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+#gbc2 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lasso", plink_dir=plink_dir)
+# 画图
+p = GBCplot(GBCres=gbc1, FontSize=5)
+ggsave("gbc.pdf", p)
+```
+### 自建参考数据集
+参考[GBC](https://github.com/JanMiao/GBC)
 
