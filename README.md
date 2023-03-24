@@ -37,8 +37,29 @@ plink --bfile file.tmp --extract MarkerID_11.txt --make-bed --out upload
 # then run iDIGs with file.tmp.bed(bim,fam)
 ```
 
+## 2. 血统成分分析（基于R包 GBC）
+### a. 使用iDIGs参考数据集
+使用类似如下代码。
+```
+library(GBC)
+library(data.table)
+library(ggplot2)
+# 选择血统来源
+breeds=c("LW", "LWH") 
+plink_dir="/disk191/miaoj/software/"
+gbc = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge.phase", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+#gbc2 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lasso", plink_dir=plink_dir)
+# 画图
+p = GBCplot(GBCres=gbc, FontSize=10)
+ggsave("gbc.pdf", p)
+```
 
-### 对于其他用户未正确运行的iDIGs程序，使用如下代码进行debug
+### b. 自建参考数据集
+参考[GBC](https://github.com/JanMiao/GBC)
+
+## 3. 其他问题
+
+### 如何debug其他用户运行失败的iDIGs网页任务？
 ```
 # 拷贝出现bug的job的目录
 cd /disk195/zz/shinyApp/iPIGs_en/temp/
@@ -51,22 +72,27 @@ res
 # 一行行运行R脚本，查找问题
 /disk195/zz/shinyApp/iPIGs_en/debug/debug.R
 ```
-## 2. 血统成分分析（基于R包 GBC）
-### 使用iDIGs参考数据集
-使用类似如下代码。
-```
-library(GBC)
-library(data.table)
-library(ggplot2)
-# 选择血统来源
-breeds=c("LW", "LWH") 
-plink_dir="/disk191/miaoj/software/"
-gbc1 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge.phase", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
-#gbc2 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lasso", plink_dir=plink_dir)
-# 画图
-p = GBCplot(GBCres=gbc1, FontSize=5)
-ggsave("gbc.pdf", p)
-```
-### 自建参考数据集
-参考[GBC](https://github.com/JanMiao/GBC)
 
+### 如何调整GBC结果的图片？
+```
+# 基于 #2 中获得的gbc
+GBCres=gbc
+nbreed <- ncol(GBCres)
+nsample <- nrow(GBCres)
+Sample <- rep(rownames(GBCres), each = nbreed)
+Breeds <- rep(colnames(GBCres), nsample)
+propotion <- as.vector(t(GBCres))
+res <- data.frame(Sample, Breeds, propotion)
+
+# 修改下面ggplot代码
+library(ggplot2)
+p <- ggplot2::ggplot(res, aes(x = Sample, y = propotion, fill = Breeds)) +
+  geom_bar(position = "stack", stat = "identity") +
+  labs(x = "Unknown Animals", y = "Proportion") +
+  theme(
+    axis.text.x = element_text(face = "bold", size = FontSize, color = "darkblue", angle = 270, vjust=0.35),
+    axis.title = element_text(face = "bold", size = 12, color = "brown")
+  )
+ggsave("gbc.pdf", p)
+
+```
