@@ -37,7 +37,7 @@ plink --bfile file.tmp --extract MarkerID_11.txt --make-bed --out upload
 # then run iDIGs with file.tmp.bed(bim,fam)
 ```
 
-## 2. 血统成分分析（基于R包 GBC）
+## 2. 血统成分分析（基于R包 [GBC](https://github.com/JanMiao/GBC)）
 ### a. 使用iDIGs参考数据集
 使用类似如下代码。
 ```
@@ -55,7 +55,7 @@ ggsave("gbc.pdf", p)
 ```
 
 ### b. 自建参考数据集
-参考[GBC](https://github.com/JanMiao/GBC)
+参考[GBC](https://github.com/JanMiao/GBC)说明文档。
 
 ## 3. 其他问题
 
