@@ -5,7 +5,7 @@
 **下述所有分析均需要填充好的SNP数据，不允许有缺失位点存在 !!!**
 
 ## 1. 品种鉴别
-### a. 如果原始SNP数据不大，可以使用网页进行上传。
+### 1.1 如果原始SNP数据不大，可以使用网页进行上传。
 推荐使用网页版品种鉴定工具 [iDIGs](http://alphaindex.zju.edu.cn/iDIGs_en/)，步骤如下：
 ![image](https://github.com/JanMiao/PanLab_GBC/blob/main/images/iDIGs_instruction.PNG)
 
@@ -16,7 +16,7 @@
 3. 如您上传的个体可能有部分不在这124个品种中，可设置`Detect Anomaly = YES`。对真实品种不在参考库中的个体，iDIGs会将其品种预测为NA。注意在这种情况下，请不要再选择参考品种。该模式下预测准确性会有较大下降，**预计准确性90%左右**。
 
 
-### b. 如果原始数据较大，不便通过网络上传。
+### 1.2 如果原始数据较大，不便通过网络上传。
 可以使用命令行版本的iDIGs进行分析：
 ```{R}
 # 如果不指定参考品种
@@ -26,7 +26,7 @@ Rscript iDIGs_cmd.R -p toy -r v11 -b DU,LW,LR
 ```
 结果文件为：`report.html` 和 `report.txt`
 
-### c. 对于WGS数据(SNP数目太多)，使用如下代码先提取相同位点。
+### 1.3 对于WGS数据(SNP数目太多)，使用如下代码先提取相同位点。
 ```
 # Normalize your markerID in bim file and copy files
 /disk191/miaoj/software/MakeSNPid file.bim file.tmp.bim
@@ -38,7 +38,7 @@ plink --bfile file.tmp --extract MarkerID_11.txt --make-bed --out upload
 ```
 
 ## 2. 血统成分分析（基于R包 [GBC](https://github.com/JanMiao/GBC)）
-### a. 使用iDIGs参考数据集
+### 2.1 使用iDIGs参考数据集
 使用类似如下代码。
 ```
 library(GBC)
@@ -54,12 +54,12 @@ p = GBCplot(GBCres=gbc, FontSize=10)
 ggsave("gbc.pdf", p)
 ```
 
-### b. 自建参考数据集
+### 2.2 自建参考数据集
 参考[GBC](https://github.com/JanMiao/GBC)说明文档。
 
 ## 3. 其他问题
 
-### 如何debug其他用户运行失败的iDIGs网页任务？
+### 3.1 如何debug其他用户运行失败的iDIGs网页任务？
 ```
 # 拷贝出现bug的job的目录
 cd /disk195/zz/shinyApp/iPIGs_en/temp/
@@ -73,7 +73,7 @@ res
 /disk195/zz/shinyApp/iPIGs_en/debug/debug.R
 ```
 
-### 如何调整GBC结果的图片？
+### 3.2 如何调整GBC结果的图片？
 ```
 # 基于 #2 中获得的gbc
 GBCres=gbc
