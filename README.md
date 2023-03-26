@@ -23,8 +23,13 @@
 Rscript /disk195/zz/shinyApp/iPIGs_en/iDIGcmd/iDIGs_cmd.R -p toy -r v11
 # 如果需要指定参考品种
 Rscript iDIGs_cmd.R -p toy -r v11 -b DU,LW,LR
+# 参数说明
+p: plink二进制文件前缀
+r: 参考基因组版本（v11 或者 v10）
+b: 参考品种，以逗号进行分割。默认使用所有品种。
 ```
 结果文件为：`report.html` 和 `report.txt`
+
 
 ### 1.3 对于WGS数据(SNP数目太多)，使用如下代码先提取相同位点。
 ```
