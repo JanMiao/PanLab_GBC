@@ -26,7 +26,7 @@ Rscript iDIGs_cmd.R -p toy -r v11 -b DU,LW,LR
 # 参数说明
 p: plink二进制文件前缀
 r: 参考基因组版本（v11 或者 v10）
-b: 参考品种，以逗号进行分割。默认使用所有品种。（品种缩写请参考iDIGs官网（Repository））
+b: 参考品种，以逗号进行分割。默认使用所有品种。（品种缩写请参考iDIGs官网：Repository）
 ```
 结果文件为：`report.html` 和 `report.txt`
 
