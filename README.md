@@ -22,11 +22,12 @@
 # 如果不指定参考品种
 Rscript /disk195/zz/shinyApp/iPIGs_en/iDIGcmd/iDIGs_cmd.R -p toy -r v11
 # 如果需要指定参考品种
-Rscript iDIGs_cmd.R -p toy -r v11 -b DU,LW,LR
+Rscript /disk195/zz/shinyApp/iPIGs_en/iDIGcmd/iDIGs_cmd.R -p toy -r v11 -b DU,LW,LR
 # 参数说明
 p: plink二进制文件前缀
 r: 参考基因组版本（v11 或者 v10）
 b: 参考品种，以逗号进行分割。默认使用所有品种。（品种缩写请参考iDIGs官网：Repository）
+a: 是否对未知品种进行检测 （默认为FALSE）
 ```
 结果文件为：`report.html` 和 `report.txt`
 
@@ -101,3 +102,9 @@ p <- ggplot2::ggplot(res, aes(x = Sample, y = propotion, fill = Breeds)) +
 ggsave("gbc.pdf", p)
 
 ```
+## 4. 常见问题（FAQ）
+### 4.1 出现如下报错：`Error in AFMatrix[breedused, ] : subscript out of bounds`
+这是因为使用的品种缩写名有误。请参考[iDIGs](http://alphaindex.zju.edu.cn/iDIGs_en/)官网下**Repository**子页面获取正确的品种缩写名。
+
+### 4.2 出现如下报错：`cannot open compressed file '{path}/{prefix}GBCdata.rds'， probable reason 'No such file or directory'`
+这是因为plink前缀参数中只能包含plink文件前缀，不能包含文件路径。我们建议将原始数据软连接到当前目录后运行。
