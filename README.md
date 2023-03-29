@@ -39,7 +39,7 @@ a: 是否对未知品种进行检测 （默认为FALSE）
 cp file.bed file.tmp.bed
 cp file.fam file.tmp.fam
 # extract overlapped SNPs
-plink --bfile file.tmp --extract MarkerID_11.txt --make-bed --out upload
+plink --bfile file.tmp --extract /disk195/zz/shinyApp/iPIGs_en/data/MarkerID_11.txt --make-bed --out upload
 # then run iDIGs with file.tmp.bed(bim,fam)
 ```
 
