@@ -66,6 +66,7 @@ ggsave("gbc.pdf", p)
 ## 3. 其他问题
 
 ### 3.1 如何debug其他用户运行失败的iDIGs网页任务？
+**品种鉴定分析**
 ```
 # 拷贝出现bug的job的目录
 cd /disk195/zz/shinyApp/iPIGs_en/temp/
@@ -77,6 +78,19 @@ load("par.RData")
 res
 # 一行行运行R脚本，查找问题
 /disk195/zz/shinyApp/iPIGs_en/debug/debug.R
+```
+**Panel 设计**
+```
+# 拷贝出现bug的job的目录
+cd /disk195/zz/shinyApp/iPIGs_en/temp/
+cp -r 1679447939/ debug/
+cd debug
+
+# 加载 & 查看用户所用参数
+load("par.RData")
+res
+# 一行行运行R脚本，查找问题
+/disk195/zz/shinyApp/iPIGs_en/analysisScript/Panel.R
 ```
 
 ### 3.2 如何调整GBC结果的图片？
