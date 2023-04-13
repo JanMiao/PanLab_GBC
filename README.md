@@ -65,7 +65,7 @@ ggsave("gbc.pdf", p)
 
 ### 2.3 天邦GBC数据集
 为天邦的安徽池州场和广西贵港场分别构建了参考集，数据文件位于`/disk192/miaoj/GBC/TB_GBC`  
-天邦数据的位点较多，使用下述新代码进行GBC分析。
+**由于天邦数据的位点较多，使用下述新代码进行GBC分析。**
 ```
 cd /disk192/miaoj/GBC/TB_GBC/test
 library(GBC)
