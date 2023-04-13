@@ -64,7 +64,7 @@ ggsave("gbc.pdf", p)
 参考[GBC](https://github.com/JanMiao/GBC)说明文档。
 
 ### 2.3 天邦GBC数据集
-为天邦的安徽池州场和广西贵港场分别构建了参考集，数据文件位于`/disk192/miaoj/GBC/TB_GBC`
+为天邦的安徽池州场和广西贵港场分别构建了参考集，数据文件位于`/disk192/miaoj/GBC/TB_GBC`  
 可以使用下述代码，为天邦数据进行GBC分析
 ```
 library(GBC)
