@@ -66,13 +66,17 @@ ggsave("gbc.pdf", p)
 ### 2.3 天邦GBC数据集
 为天邦的安徽池州场和广西贵港场分别构建了参考集，数据文件位于`/disk192/miaoj/GBC/TB_GBC`  
 **由于天邦数据的位点较多，使用下述新代码进行GBC分析。**
+
 ```
 cd /disk192/miaoj/GBC/TB_GBC/test
 library(GBC)
 library(Rcpp)
 source("/disk192/miaoj/GBC/TB_GBC/TB_GBC.R")
 plink_dir = "/disk191/miaoj/software/"
-gbc = GBCpred(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix="GXGGtest" , nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+breedUsed = c("TB5", "Duroc", "Yorkshire", "Pietrain", "Landrace") # GXGG
+# breedUsed = c("Duroc", "Yorkshire", "Pietrain", "Landrace") # AHCZ
+gbc = GBCpred(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+#gbc = GBCpred(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
 ```
 
 
