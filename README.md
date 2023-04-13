@@ -63,8 +63,24 @@ ggsave("gbc.pdf", p)
 ### 2.2 自建参考数据集
 参考[GBC](https://github.com/JanMiao/GBC)说明文档。
 
-## 3. 其他问题
+### 2.3 天邦GBC数据集
+为天邦的安徽池州场和广西贵港场分别构建了参考集，数据文件位于`/disk192/miaoj/GBC/TB_GBC`
+可以使用下述代码，为天邦数据进行GBC分析
+```
+library(GBC)
+library(data.table)
+library(ggplot2)
+# 选择血统来源
+breeds=c("Duroc", "Yorkshire", "Pietrain", "Landrace")  # 安徽池州场
+#breeds=c("TB5", "Duroc", "Yorkshire", "Pietrain", "Landrace") # 广西贵港场
+plink_dir="/disk191/miaoj/software/"
+gbc = GBCpred(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix="LL_LW_merge.phase", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+# 画图
+p = GBCplot(GBCres=gbc, FontSize=10)
+ggsave("gbc.pdf", p)
 
+
+## 3. 其他问题
 ### 3.1 如何debug其他用户运行失败的iDIGs网页任务？
 **品种鉴定分析**
 ```
