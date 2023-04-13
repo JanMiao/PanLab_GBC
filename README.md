@@ -76,8 +76,8 @@ source("/disk192/miaoj/GBC/TB_GBC/TB_GBC.R")
 plink_dir = "/disk191/miaoj/software/"
 breedUsed = c("TB5", "Duroc", "Yorkshire", "Pietrain", "Landrace") # GXGG
 # breedUsed = c("Duroc", "Yorkshire", "Pietrain", "Landrace") # AHCZ
-gbc = GBCpred(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
-#gbc = GBCpred(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+#gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
 ```
 
 
