@@ -71,6 +71,7 @@ ggsave("gbc.pdf", p)
 cd /disk192/miaoj/GBC/TB_GBC/test
 library(GBC)
 library(Rcpp)
+library(data.table)
 source("/disk192/miaoj/GBC/TB_GBC/TB_GBC.R")
 plink_dir = "/disk191/miaoj/software/"
 breedUsed = c("TB5", "Duroc", "Yorkshire", "Pietrain", "Landrace") # GXGG
