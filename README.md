@@ -144,8 +144,8 @@ ggsave("gbc.pdf", p)
 ```
 ### 卸载包
 remove.packages("GBC")
-# 重启R
-.rs.restartR()
+# 退出R & 重新启动
+在Rstudio中使用： .rs.restartR()
 # 重新安装GBC
 install.packages("/disk192/miaoj/GBC/GBC_0.5.tar.gz", repos = NULL)
 library(GBC)
