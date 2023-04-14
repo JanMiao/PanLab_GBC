@@ -87,7 +87,7 @@ ggsave("gbc.pdf", p)
 # label outliers in PCA plot
 source("/disk192/miaoj/GBC/TB_GBC/PCAplot1.R")
 # The 'breed_file' parameter needs to specify a file that is tab-separated, with the individual ID in the first column and the corresponding breed information in the second column.
-PCAplot <- function(plink_prefix=test_prefix, sampleID = NULL, breed_file=NULL, PDFprefix="test", sampleLabel = NULL, plink_dir=plink_dir)
+PCAplot <- function(plink_prefix=test_prefix, sampleID = NULL, breed_file=NULL, PDFprefix="test", sampleLabel = c("A","B"), plink_dir=plink_dir)
 ggsave("PCA_outliers.pdf", PCAplot)
 ```
 
