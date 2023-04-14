@@ -139,3 +139,15 @@ ggsave("gbc.pdf", p)
 
 ### 4.2 出现如下报错：`cannot open compressed file '{path}/{prefix}GBCdata.rds'， probable reason 'No such file or directory'`
 这是因为plink前缀参数中只能包含plink文件前缀，不能包含文件路径。我们建议将原始数据软连接到当前目录后运行。
+
+### 4.3 如果存在一些函数不存在的bug，可重新安装GBC的R包。
+```
+### 卸载包
+remove.packages("GBC")
+# 重启R
+.rs.restartR()
+# 重新安装GBC
+install.packages("/disk192/miaoj/GBC/GBC_0.5.tar.gz", repos = NULL)
+library(GBC)
+```
+
