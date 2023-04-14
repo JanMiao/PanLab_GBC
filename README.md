@@ -72,12 +72,23 @@ cd /disk192/miaoj/GBC/TB_GBC/test
 library(GBC)
 library(Rcpp)
 library(data.table)
+library(ggplot2)
 source("/disk192/miaoj/GBC/TB_GBC/TB_GBC.R")
+# set parameters
 plink_dir = "/disk191/miaoj/software/"
+test_prefix="GXGGtest"
 breedused = c("TB5", "Duroc", "Yorkshire", "Pietrain", "Landrace") # GXGG
 # breedused = c("Duroc", "Yorkshire", "Pietrain", "Landrace") # AHCZ
-gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
-#gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix="GXGGtest", breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix=test_prefix, breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+#gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix=test_prefix, breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
+# admixture plot
+p = GBCplot(GBCres=gbc, FontSize=5)
+ggsave("gbc.pdf", p)
+# label outliers in PCA plot
+source("/disk192/miaoj/GBC/TB_GBC/PCAplot1.R")
+# The 'breed_file' parameter needs to specify a file that is tab-separated, with the individual ID in the first column and the corresponding breed information in the second column.
+PCAplot <- function(plink_prefix=test_prefix, sampleID = NULL, breed_file=NULL, PDFprefix="test", sampleLabel = NULL, plink_dir=plink_dir)
+ggsave("PCA_outliers.pdf", PCAplot)
 ```
 
 
