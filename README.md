@@ -53,8 +53,8 @@ library(ggplot2)
 # 选择血统来源
 breeds=c("LW", "LWH") # 品种缩写请参考iDIGs官网（Repository）
 plink_dir="/disk191/miaoj/software/"
-gbc = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge.phase", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
-#gbc2 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge", breedused=breeds , nmarkers=NULL, testMode = TRUE, method="lasso", plink_dir=plink_dir)
+gbc = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge.phase", breedused=breeds , nmarkers=NULL, testMode = FALSE, method="lm", plink_dir=plink_dir)
+#gbc2 = GBCpred(RDS="/disk195/zz/shinyApp/iPIGs_en/data/REF_data11_freq.rds", test_prefix="LL_LW_merge", breedused=breeds , nmarkers=NULL, testMode = FALSE, method="lasso", plink_dir=plink_dir)
 # 画图
 p = GBCplot(GBCres=gbc, FontSize=10)
 ggsave("gbc.pdf", p)
