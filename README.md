@@ -3,6 +3,8 @@
 
 
 下述所有分析均需要填充好的SNP数据，**不允许有缺失位点存在** !!!
+如果不做填充，可以使用如下代码删除所有含有缺失的位点。  
+`/disk191/miaoj/software/plink --bfile [inFile] --geno 0 --make-bed --out [outFile]`
 
 ## 1. 品种鉴别
 ### 1.1 如果原始SNP数据不大，可以使用网页进行上传。
