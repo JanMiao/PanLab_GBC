@@ -69,18 +69,28 @@ ggsave("gbc.pdf", p)
 为天邦的安徽池州场和广西贵港场分别构建了参考集，数据文件位于`/disk192/miaoj/GBC/TB_GBC`  
 **由于天邦数据的位点较多，使用下述新代码进行GBC分析。**
 
+
 ```
 cd /disk192/miaoj/GBC/TB_GBC/test
 library(GBC)
 library(Rcpp)
 library(data.table)
 library(ggplot2)
+source("/disk192/miaoj/GBC/TB_GBC/data_check.R")
 source("/disk192/miaoj/GBC/TB_GBC/TB_GBC.R")
-# set parameters
+### 1. set parameters
 plink_dir = "/disk191/miaoj/software/"
 test_prefix="GXGGtest"
 breedused = c("TB5", "Duroc", "Yorkshire", "Pietrain", "Landrace") # GXGG
 # breedused = c("Duroc", "Yorkshire", "Pietrain", "Landrace") # AHCZ
+### 2. 检查test数据集中的染色体数目及是否存在重复位点
+check_data(test_prefix = test_prefix)
+# 如果有非常规染色体需要删除，如仅仅保留1-18号染色体
+chrs = seq(1,18)
+rm_chr(plink_dir=plink_dir, test_prefix=test_prefix, keepChr=chrs, out_prefix="ab")
+# 删除重复位点
+rmDupSNP(plink_dir=plink_dir, test_prefix=test_prefix,out_prefix = "noDup")
+### 3. GBC analysis
 gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/GXGG_frequency.rds", test_prefix=test_prefix, breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
 #gbc = GBCpreds(RDS="/disk192/miaoj/GBC/TB_GBC/AHCZ_frequency.rds", test_prefix=test_prefix, breedused=breedused, nmarkers=NULL, testMode = TRUE, method="lm", plink_dir=plink_dir)
 # admixture plot
